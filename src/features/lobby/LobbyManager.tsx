@@ -1,6 +1,6 @@
 import { SocketContext, SocketIDContext } from '../../context/socket';
 import React, { useContext, useCallback, useState, useEffect } from 'react';
-import Lobby from './Lobby';
+import Lobby from '../../types/Lobby';
 import SocketForm from '../../components/SocketForm';
 import LobbyInfo from './LobbyInfo';
 import CreateLobbyButton from './CreateLobbyButton';

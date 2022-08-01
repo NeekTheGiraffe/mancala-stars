@@ -48,7 +48,9 @@ function MessageList() {
 
   return (
     <React.Fragment>
-      {messageList.map((message, i) => <p key={i}>{message}</p>)}
+      {messageList.map((message, i) =>
+        <p key={i}>{message}</p>
+      )}
     </React.Fragment>
   );
 }

@@ -1,4 +1,4 @@
-import Lobby from './Lobby';
+import Lobby from '../../types/Lobby';
 import React from 'react';
 
 interface LobbyInfoProps { lobby: Lobby }
