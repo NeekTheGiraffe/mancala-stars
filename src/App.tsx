@@ -23,6 +23,7 @@ function Content() {
   const [myId, setMyId] = useState<string | null>(null);
   const [lobby, setLobby] = useState<Lobby | null>(null);
   const [game, setGame] = useState<Game | null>(null);
+  const [isGameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     socket.on('yourId', id => setMyId(id));
@@ -33,6 +34,18 @@ function Content() {
     socket.on("lobby:leave:success", () => setLobby(null));
     socket.on("lobby:update", (lobby: Lobby) => setLobby(lobby));
 
+    socket.on("game:start", (game: Game) => {
+      setGame(game);
+      setGameOver(false);
+    });
+    socket.on("game:update", (game: Game, isGameOver: boolean) => {
+      setGame(game);
+      setGameOver(isGameOver);
+    });
+    socket.on("game:end", () => {
+      setGame(null);
+      setGameOver(false);
+    });
 
   }, [socket]);
 
@@ -59,10 +72,6 @@ function getContent(lobby: Lobby | null, game: Game | null) {
   return <GameContent game={game} />;
 }
 
-function registerEventHandlers() {
-  // TODO
-}
-
 function NoLobbyContent() {
   const joinLobby = useCallback((socket: Socket, formValue: string) => socket.emit('lobby:join', formValue), []);
 
@@ -79,7 +88,7 @@ function LobbyContent({ lobby }: { lobby: Lobby }) {
   const myId = useContext(SocketIDContext);
   const socket = useContext(SocketContext);
   const leaveLobby = useCallback(() => socket.emit("lobby:leave"), [socket]);
-  const startGame = useCallback(() => socket.emit("startGame"), [socket]);
+  const startGame = useCallback(() => socket.emit("game:start"), [socket]);
 
   return (
     <React.Fragment>
