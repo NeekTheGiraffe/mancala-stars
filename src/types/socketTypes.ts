@@ -1,5 +1,6 @@
 import Lobby from "types/Lobby";
 import Game from "types/Game";
+import { Mancala } from "features/mancala/Mancala";
 
 export interface ClientToServerEvents {
     "sendMessage": (m: string) => void;
@@ -10,6 +11,9 @@ export interface ClientToServerEvents {
     
     "game:start": () => void;
     "game:makeMove": (pit: number) => void;
+
+    "game:solo:start": () => void;
+    "game:solo:makeMove": (pit: number) => void;
 
     "requestId": () => void;
 }
@@ -25,6 +29,9 @@ export interface ServerToClientEvents {
     "game:start": (game: Game) => void;
     "game:update": (game: Game, isGameOver: boolean) => void;
     "game:end": () => void;
+
+    "game:solo:start": (board: Mancala.Board) => void;
+    "game:solo:update": (board: Mancala.Board, isGameOver: boolean) => void;
 
     "yourId": (socketId: string) => void;
 }

@@ -8,6 +8,7 @@ import LobbyInfo from 'features/lobby/LobbyInfo';
 import CreateLobbyButton from 'features/lobby/CreateLobbyButton';
 import MancalaBoardView from 'features/mancala/MancalaBoardView';
 import Game from 'types/Game';
+import { Mancala } from 'features/mancala/Mancala';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function Content() {
   const [lobby, setLobby] = useState<Lobby | null>(null);
   const [game, setGame] = useState<Game | null>(null);
   const [isGameOver, setGameOver] = useState(false);
+  const [soloBoard, setSoloBoard] = useState<Mancala.Board | null>(null);
 
   useEffect(() => {
     socket.on('yourId', id => setMyId(id));
@@ -34,23 +36,25 @@ function Content() {
     socket.on("lobby:leave:success", () => setLobby(null));
     socket.on("lobby:update", (lobby: Lobby) => setLobby(lobby));
 
-    socket.on("game:start", (game: Game) => {
+    const setGameAndGameOver = (game: Game | null, gameOver: boolean) => {
       setGame(game);
-      setGameOver(false);
-    });
-    socket.on("game:update", (game: Game, isGameOver: boolean) => {
-      setGame(game);
-      setGameOver(isGameOver);
-    });
-    socket.on("game:end", () => {
-      setGame(null);
-      setGameOver(false);
-    });
+      setGameOver(gameOver);
+    };
+    socket.on("game:start", game => setGameAndGameOver(game, false));
+    socket.on("game:update", (game, isGameOver) => setGameAndGameOver(game, isGameOver));
+    socket.on("game:end", () => setGameAndGameOver(null, false));
+
+    const setBoardAndGameOver = (board: Mancala.Board | null, gameOver: boolean) => {
+      setSoloBoard(board);
+      setGameOver(gameOver);
+    };
+    socket.on("game:solo:start", board => setBoardAndGameOver(board, false));
+    socket.on("game:solo:update", (board, gmOver) => setBoardAndGameOver(board, gmOver));
 
   }, [socket]);
 
   const sendMessage = useCallback((socket: Socket, formValue: string) => socket.emit('sendMessage', formValue), []);
-  const content = getContent(lobby, game);
+  const content = getContent(lobby, game, soloBoard, isGameOver);
 
   return (
     <SocketIDContext.Provider value={myId}>
@@ -66,17 +70,22 @@ function Content() {
 }
 
 /** Returns the content prop appropriate for the current lobby/game state. */
-function getContent(lobby: Lobby | null, game: Game | null) {
+function getContent(lobby: Lobby | null, game: Game | null, soloBoard: Mancala.Board | null, isGameOver: boolean) {
+  if (soloBoard != null) return <MancalaBoardView board={soloBoard} flipPerspective={false} solo={true} gameOver={isGameOver} />
+  if (game != null) return <GameContent game={game} gameOver={isGameOver} />;
   if (lobby == null) return <NoLobbyContent />;
-  if (game == null) return <LobbyContent lobby={lobby} />;
-  return <GameContent game={game} />;
+  return <LobbyContent lobby={lobby} />;
 }
 
 function NoLobbyContent() {
   const joinLobby = useCallback((socket: Socket, formValue: string) => socket.emit('lobby:join', formValue), []);
+  
+  const socket = useContext(SocketContext);
+  const startSoloGame = useCallback(() => socket.emit('game:solo:start'), [socket]);
 
   return (
     <React.Fragment>
+      <button onClick={startSoloGame}>Play vs. AI</button>
       <CreateLobbyButton />
       <SocketForm placeholder="Enter a lobby code" buttonText="Join"
         onSubmit={joinLobby} />
@@ -100,7 +109,7 @@ function LobbyContent({ lobby }: { lobby: Lobby }) {
   );
 }
 
-function GameContent({ game }: { game: Game }) {
+function GameContent({ game, gameOver }: { game: Game, gameOver: boolean }) {
   
   const myId = useContext(SocketIDContext);
   const myIndex = myId != null ? game.playerMap[myId] : 0;
@@ -110,7 +119,7 @@ function GameContent({ game }: { game: Game }) {
   return (
     <React.Fragment>
       <h4>Opponent</h4>
-      <MancalaBoardView board={game.board} flipPerspective={flipPerspective} />
+      <MancalaBoardView board={game.board} flipPerspective={flipPerspective} gameOver={gameOver} />
       <h4>You</h4>
       <h3>{myTurn ? "Your" : "Opponent's"} Turn</h3>
     </React.Fragment>
