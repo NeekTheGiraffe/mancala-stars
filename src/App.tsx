@@ -53,7 +53,8 @@ function Content() {
 
   }, [socket]);
 
-  const sendMessage = useCallback((socket: Socket, formValue: string) => socket.emit('sendMessage', formValue), []);
+  //const sendMessage = useCallback((socket: Socket, formValue: string) => socket.emit('sendMessage', formValue), []);
+  const quitSoloGame = useCallback(() => setSoloBoard(null), []);
   const content = getContent(lobby, game, soloBoard, isGameOver);
 
   return (
