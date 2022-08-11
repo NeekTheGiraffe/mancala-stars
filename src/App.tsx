@@ -61,9 +61,9 @@ function Content() {
       <div className="App">
         {content}
 
-        <MessageList />
+        {/* <MessageList />
         <SocketForm placeholder="Write something..." buttonText="Send"
-          onSubmit={sendMessage} />
+          onSubmit={sendMessage} /> */}
       </div>
     </SocketIDContext.Provider>
   );
