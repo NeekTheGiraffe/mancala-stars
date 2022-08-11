@@ -20,11 +20,11 @@ export default function SocketForm({ onSubmit, placeholder, buttonText }: Socket
     []);
 
   return (
-    <form onSubmit={sendMessage}>
+    <form className="input-group" onSubmit={sendMessage}>
       <input value={formValue}
         placeholder={placeholder}
         onChange={onInputChange} />
-      <button type="submit">{buttonText}</button>
+      <button className="btn" type="submit">{buttonText}</button>
     </form>
   );
 }

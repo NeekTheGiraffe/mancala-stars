@@ -59,7 +59,9 @@ function Content() {
 
   return (
     <SocketIDContext.Provider value={myId}>
-      <div className="App">
+      <div className="app">
+        <h1>Mancala Stars</h1>
+
         {content}
 
         {/* <MessageList />
@@ -80,7 +82,7 @@ function getContent({ lobby, game, soloBoard, isGameOver, quitSoloGame }: {
 }) {  
   if (soloBoard != null) return (<React.Fragment>
     <h2>Solo Game</h2>
-    <button onClick={quitSoloGame}>QUIT</button>
+    <button className="btn" onClick={quitSoloGame}>QUIT</button>
     <MancalaBoardView
       board={soloBoard}
       flipPerspective={false}
@@ -101,8 +103,10 @@ function NoLobbyContent() {
 
   return (
     <React.Fragment>
-      <button onClick={startSoloGame}>PLAY vs. AI</button>
-      <CreateLobbyButton />
+      <div>
+        <button className="btn" onClick={startSoloGame}>PLAY vs. AI</button>
+        <CreateLobbyButton />
+      </div>
       <SocketForm placeholder="Enter a lobby code" buttonText="JOIN"
         onSubmit={joinLobby} />
     </React.Fragment>
@@ -118,9 +122,11 @@ function LobbyContent({ lobby }: { lobby: Lobby }) {
   return (
     <React.Fragment>
       <LobbyInfo lobby={lobby} />
-      {lobby.size === lobby.capacity && myId === lobby.leaderId &&
-        <button onClick={startGame}>START GAME</button>}
-      <button onClick={leaveLobby}>LEAVE</button>
+      <div>
+        {lobby.size === lobby.capacity && myId === lobby.leaderId &&
+          <button className="btn" onClick={startGame}>START GAME</button>}
+        <button className="btn" onClick={leaveLobby}>LEAVE</button>
+      </div>
     </React.Fragment>
   );
 }
@@ -142,12 +148,10 @@ function GameContent({ game, gameOver, lobby }: { game: Game, gameOver: boolean,
     <React.Fragment>
       <h2>Online Game</h2>
       <div>
-        {gameOver && isLeader && <button onClick={restartGame}>RESTART</button>}
-        {gameOver && <button onClick={quitGame}>QUIT</button>}
+        {gameOver && isLeader && <button className="btn" onClick={restartGame}>RESTART</button>}
+        {gameOver && <button className="btn" onClick={quitGame}>QUIT</button>}
       </div>
-      <h4>Opponent</h4>
       <MancalaBoardView board={game.board} flipPerspective={flipPerspective} gameOver={gameOver} />
-      <h4>You</h4>
       <h3>{message}</h3>
     </React.Fragment>
   );

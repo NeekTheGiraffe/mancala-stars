@@ -15,9 +15,9 @@ export default function MancalaBoardView({ board, flipPerspective, solo = false,
   const pitValueToTableEl = useCallback((value: number, pit: number) => {
     const pitOwner = Math.floor(pit / halfway);
     if (value === 0 || whoseTurn !== myIndex || pitOwner === theirIndex || gameOver) {
-      return <td key={pit}><button disabled>{value}</button></td>;
+      return <td key={pit}><button className={`pit pit-${value}`} disabled>{value}</button></td>;
     }
-    return <td key={pit}><button onClick={() => makeMove(pit)}>{value}</button></td>;
+    return <td key={pit}><button className={`pit pit-${value} pit-active`} onClick={() => makeMove(pit)}>{value}</button></td>;
 
   }, [makeMove, whoseTurn, myIndex, theirIndex, halfway, gameOver]);
   const myPits = flipPerspective ?
@@ -32,9 +32,9 @@ export default function MancalaBoardView({ board, flipPerspective, solo = false,
     <table>
       <tbody>
         <tr>
-          <td rowSpan={2}>{stores[theirIndex]}</td>
+          <td className="mancala-store" rowSpan={2}>{stores[theirIndex]}</td>
           {theirPits}
-          <td rowSpan={2}>{stores[myIndex]}</td>
+          <td className="mancala-store" rowSpan={2}>{stores[myIndex]}</td>
         </tr>
         <tr>
           {myPits}
