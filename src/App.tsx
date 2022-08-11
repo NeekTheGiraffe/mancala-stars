@@ -54,7 +54,7 @@ function Content() {
   }, [socket]);
 
   //const sendMessage = useCallback((socket: Socket, formValue: string) => socket.emit('sendMessage', formValue), []);
-  const quitSoloGame = useCallback(() => setSoloBoard(null), []);
+  const quitSoloGame = useCallback(() => { setSoloBoard(null); socket.emit('game:solo:quit'); }, [socket]);
   const content = getContent({ lobby, game, soloBoard, isGameOver, quitSoloGame });
 
   return (
@@ -80,19 +80,28 @@ function getContent({ lobby, game, soloBoard, isGameOver, quitSoloGame }: {
   isGameOver: boolean,
   quitSoloGame: () => void;
 }) {  
-  if (soloBoard != null) return (<React.Fragment>
+  if (soloBoard != null) return <SoloGameContent board={soloBoard} isGameOver={isGameOver} quitSoloGame={quitSoloGame} />
+  if (lobby == null) return <NoLobbyContent />;
+  if (game != null) return <GameContent game={game} gameOver={isGameOver} lobby={lobby} />;
+  return <LobbyContent lobby={lobby} />;
+}
+
+function SoloGameContent({ board, isGameOver, quitSoloGame }:
+  { board: Mancala.Board, isGameOver: boolean, quitSoloGame: () => void; }) {
+
+  const message = mancalaMessage(isGameOver, 0, board.whoseTurn, board.stores);
+  
+  return (<React.Fragment>
     <h2>Solo Game</h2>
     <button className="btn" onClick={quitSoloGame}>QUIT</button>
     <MancalaBoardView
-      board={soloBoard}
+      board={board}
       flipPerspective={false}
       solo={true}
       gameOver={isGameOver}
     />
+    <h3>{message}</h3>
   </React.Fragment>);
-  if (lobby == null) return <NoLobbyContent />;
-  if (game != null) return <GameContent game={game} gameOver={isGameOver} lobby={lobby} />;
-  return <LobbyContent lobby={lobby} />;
 }
 
 function NoLobbyContent() {
