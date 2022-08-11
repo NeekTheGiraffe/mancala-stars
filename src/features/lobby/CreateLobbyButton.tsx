@@ -5,5 +5,5 @@ export default function CreateLobbyButton() {
   const socket = useContext(SocketContext);
   const createLobby = useCallback(() => socket.emit('lobby:create'), [socket]);
 
-  return (<button onClick={createLobby}>Create lobby</button>);
+  return (<button onClick={createLobby}>CREATE LOBBY</button>);
 }

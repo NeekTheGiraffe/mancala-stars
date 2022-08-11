@@ -13,7 +13,7 @@ export default function LobbyInfo({ lobby }: LobbyInfoProps) {
   return (
     <React.Fragment>
       <p>Lobby ({size}/{capacity})</p>
-      <p>Code: {id}<button onClick={copyLobbyId}>{copied ? 'Copied!' : 'Copy code'}</button></p>
+      <p>Code: {id}<button onClick={copyLobbyId}>{copied ? 'COPIED!' : 'COPY CODE'}</button></p>
     </React.Fragment>
   );
 }
