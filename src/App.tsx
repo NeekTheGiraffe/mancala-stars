@@ -60,7 +60,7 @@ function Content() {
   return (
     <SocketIDContext.Provider value={myId}>
       <div className="app">
-        <h1>Mancala Stars</h1>
+        <h1>🌟 Mancala Stars 🌟</h1>
 
         {content}
 
