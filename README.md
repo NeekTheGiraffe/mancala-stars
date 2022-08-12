@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# Mancala Stars
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend code for my [multiplayer Mancala web app](https://neekthegiraffe.github.io/mancala-stars/), where you can play Mancala against an "AI" or against other people.
 
-## Available Scripts
+This code contains all the client-side logic for joining games and rendering the board.
 
-In the project directory, you can run:
+## Try the app online
 
-### `npm start`
+1. Visit the [webpage](https://neekthegiraffe.github.io/mancala-stars/)!
+2. Click "Play vs. AI" to play a game against the AI.
+3. If you have someone to play with, try creating a lobby and sending them the join code. Then start a game and play!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Running the app locally
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. To run this project, you need [Git](https://git-scm.com/downloads) and [Node/npm](https://nodejs.org/en/download/) installed.
+2. Open a terminal and clone the [backend repository](https://github.com/NeekTheGiraffe/mancala-stars-backend):
+```
+git clone https://github.com/NeekTheGiraffe/mancala-stars-backend.git
+```
+3. Install the Node dependencies:
+```
+cd mancala-stars-backend
+npm install
+```
+4. Run the backend server:
+```
+npm run dev
+```
+5. Open another terminal and clone the frontend repository:
+```
+git clone https://github.com/NeekTheGiraffe/mancala-stars.git
+```
+6. Inside this repository, open `src/context/socket.ts` and uncomment/comment the following lines so they look like this:
+```
+const SOCKET_URL = "http://localhost:5000";
+//const SOCKET_URL = "https://mancala-stars.herokuapp.com";
+```
+This will point the frontend app to your locally-running server.
+7. Run the frontend app:
+```
+npm start
+```
+8. Navigate to [http://localhost:3000](http://localhost:3000) and the app should be running!
 
-### `npm test`
+## App features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* Play Mancala against an AI or with friends by entering unique lobby codes
+* Multiplayer lobby system
+* Secure, authoritative server to prevent cheating/attacks
 
-### `npm run build`
+## Future directions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Improve the "AI" (currently just randomly chooses a move)
+* Flesh out the lobby system and create public lobbies
+* Embed the AI in the frontend code to play against them without Internet
+* Include lobby codes as links themselves, allowing users to just follow links instead of manually copying and pasting codes
+* Include more social features such as a live chat
