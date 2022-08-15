@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/mancala-stars/static/css/main.f9d3cf4a.css",
-    "main.js": "/mancala-stars/static/js/main.e519df28.js",
-    "static/js/787.6e748c4b.chunk.js": "/mancala-stars/static/js/787.6e748c4b.chunk.js",
-    "static/media/Montserrat-Bold.ttf": "/mancala-stars/static/media/Montserrat-Bold.68c8d686f4b0d91b92f1.ttf",
-    "static/media/Montserrat-Regular.ttf": "/mancala-stars/static/media/Montserrat-Regular.7c8ccfe4b8a1b8ea2327.ttf",
-    "index.html": "/mancala-stars/index.html",
-    "main.f9d3cf4a.css.map": "/mancala-stars/static/css/main.f9d3cf4a.css.map",
-    "main.e519df28.js.map": "/mancala-stars/static/js/main.e519df28.js.map",
-    "787.6e748c4b.chunk.js.map": "/mancala-stars/static/js/787.6e748c4b.chunk.js.map"
+    "main.css": "./static/css/main.507dbe7b.css",
+    "main.js": "./static/js/main.04b5edc8.js",
+    "static/js/787.6e748c4b.chunk.js": "./static/js/787.6e748c4b.chunk.js",
+    "static/media/Montserrat-Bold.ttf": "./static/media/Montserrat-Bold.68c8d686f4b0d91b92f1.ttf",
+    "static/media/Montserrat-Regular.ttf": "./static/media/Montserrat-Regular.7c8ccfe4b8a1b8ea2327.ttf",
+    "index.html": "./index.html",
+    "main.507dbe7b.css.map": "./static/css/main.507dbe7b.css.map",
+    "main.04b5edc8.js.map": "./static/js/main.04b5edc8.js.map",
+    "787.6e748c4b.chunk.js.map": "./static/js/787.6e748c4b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9d3cf4a.css",
-    "static/js/main.e519df28.js"
+    "static/css/main.507dbe7b.css",
+    "static/js/main.04b5edc8.js"
   ]
 }
