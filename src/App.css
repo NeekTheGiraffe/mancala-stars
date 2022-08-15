@@ -59,6 +59,66 @@ h1, h2 {
   border-top-left-radius: 0px;
 }
 
+/* Warning message */ 
+
+.warning-message {
+  color: #f55151;
+}
+
+/* Tooltips */
+
+.tooltip-holder {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  background-color: black;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+
+  position: absolute;
+  z-index: 1;
+
+  visibility: hidden;
+  top: 80%;
+  left: 50%;
+  
+  text-align: center;
+
+  width: 20rem;
+  margin-left: -10rem;
+}
+
+.tooltip::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip-holder:hover .tooltip {
+  visibility: visible;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  filter: invert(35%) sepia(66%) saturate(1106%) hue-rotate(323deg) brightness(105%) contrast(94%);
+  margin-left: 0.5rem;
+}
+
+.tooltip-holder:hover .icon {
+  filter: invert(97%) sepia(5%) saturate(484%) hue-rotate(268deg) brightness(121%) contrast(100%);
+  /*filter: invert(53%) sepia(0%) saturate(95%) hue-rotate(213deg) brightness(94%) contrast(94%);*/
+}
+
 /* Mancala board styles */
 
 table {

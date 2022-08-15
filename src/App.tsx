@@ -62,6 +62,15 @@ function Content() {
       <div className="app">
         <h1>🌟 Mancala Stars 🌟</h1>
 
+        {!socket.connected && <div className="tooltip-holder">
+          <h3 className="warning-message">Not connected to server</h3>
+          <img src="./images/question-mark.svg" className="icon" alt="Question mark" />
+          <div className="tooltip">
+            This could because the server is coming off an idle phase (~15 seconds wait),<br/>
+            or because of poor Internet.
+          </div>
+        </div>}
+
         {content}
 
         {/* <MessageList />
