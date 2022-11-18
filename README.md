@@ -33,9 +33,10 @@ git clone https://github.com/NeekTheGiraffe/mancala-stars.git
 6. Inside this repository, open `src/context/socket.ts` and uncomment/comment the following lines so they look like this:
 ```
 const SOCKET_URL = "http://localhost:5000";
-//const SOCKET_URL = "https://mancala-stars.herokuapp.com";
+//const SOCKET_URL = "https://mancala-stars.onrender.com";
 ```
 This will point the frontend app to your locally-running server.
+
 7. Run the frontend app:
 ```
 npm start
